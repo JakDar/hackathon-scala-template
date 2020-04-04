@@ -1,13 +1,14 @@
 package com.guys.coding.hackathon.backend.infrastructure.slick
 
 import cats.effect.{ContextShift, IO}
-import com.guys.coding.hackathon.backend.infrastructure.slick.example.ExampleSchema
 import com.typesafe.config.{Config, ConfigFactory}
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, FlatSpec}
 import scala.concurrent.ExecutionContext.global
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.language.postfixOps
+import com.guys.coding.hackathon.backend.infrastructure.slick.section.SectionSchema
+import com.guys.coding.hackathon.backend.infrastructure.slick.product.ProductSchema
 
 trait PostgresSpec extends FlatSpec with BeforeAndAfterEach with BeforeAndAfterAll with repo.profile.API {
 
@@ -25,7 +26,8 @@ trait PostgresSpec extends FlatSpec with BeforeAndAfterEach with BeforeAndAfterA
 
   val schemas =
     List(
-      ExampleSchema
+      SectionSchema,
+      ProductSchema
     )
 
   protected def openDbStartingPostgres(config: Config): Unit = {
@@ -40,7 +42,8 @@ trait PostgresSpec extends FlatSpec with BeforeAndAfterEach with BeforeAndAfterA
   protected def clearDB(): Unit =
     Await.result(
       db.run(for {
-        _ <- ExampleSchema.examples.delete
+        _ <- SectionSchema.sections.delete
+        _ <- ProductSchema.products.delete
       } yield ()),
       5 seconds
     )

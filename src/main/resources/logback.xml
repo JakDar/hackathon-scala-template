@@ -5,8 +5,14 @@
         </encoder>
     </appender>
 
+    <appender name="REMOTE" class="net.logstash.logback.appender.LogstashSocketAppender">
+        <host>logging-server</host>
+        <port>5000</port>
+        <customFields>{"stack":"creator", "service":"plugin-dedicated-zenka-repeated-loan", "environment":${DEPLOY_ENVIRONMENT}, "type":"backend-service", "version": "0.3"}</customFields>
+    </appender>
 
-    <root level="WARN">
+    <root level="INFO">
         <appender-ref ref="STDOUT"/>
+        <appender-ref ref="REMOTE"/>
     </root>
 </configuration>

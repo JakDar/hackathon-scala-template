@@ -1,6 +1,10 @@
+import sbt.Keys.baseDirectory
 enablePlugins(SbtNativePackager)
 enablePlugins(JavaAppPackaging)
+enablePlugins(DockerPlugin)
 addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1")
+
+version := "0.0"
 
 val protoSettings = Seq(
   PB.targets in Compile := Seq(
@@ -8,12 +12,17 @@ val protoSettings = Seq(
   )
 )
 
+dockerBaseImage := "openjdk:13-jdk-buster"
+daemonUser in Docker := "root"
+dockerRepository := Some("docker.codeheroes.io")
+dockerExposedPorts := Seq(8080)
+
 addCompilerPlugin(scalafixSemanticdb)
 
-lazy val `hackathon-backend` = (project in file("."))
+lazy val `manual-ecommerce-provider` = (project in file("."))
   .settings(
     organization := "com.guys.coding",
-    name := "hackathon-backend",
+    name := "manual-ecommerce-provider",
     scalaVersion := "2.13.1",
     resolvers ++= Dependencies.additionalResolvers,
     libraryDependencies ++= Dependencies.all,
@@ -22,8 +31,6 @@ lazy val `hackathon-backend` = (project in file("."))
   )
   .settings(protoSettings: _*)
 
-PB.protoSources in Compile :=
-  Seq.empty
-// Seq(
-//   "user-proto"
-// ).map(baseDirectory.value / "hackathon-backend-proto" / _)
+PB.protoSources in Compile := Seq(
+  baseDirectory.value / ".." / ".." / "creator" / "creator-protobufs" / "manual-ecommerce-provider"
+)

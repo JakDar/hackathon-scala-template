@@ -15,34 +15,10 @@ object Dependencies {
     Seq(
       "io.codeheroes"       %% "commons-postgres"    % CodeheroesCommonsVersion,
       "com.github.tminglei" %% "slick-pg"            % SlickPgVersion,
-      "com.github.tminglei" %% "slick-pg_jts"        % SlickPgVersion,
       "com.github.tminglei" %% "slick-pg_circe-json" % SlickPgVersion
     )
 
-  val Http4sVersion       = "0.21.1"
-  val CirceVersion        = "0.13.0"
-  val CirceOpticsVersion  = "0.13.0"
-  val SangriaCirceVersion = "1.3.0"
-  val SangriaVersion      = "2.0.0-M3"
-  val JwtVersion          = "4.2.0"
-
-  private val http4sDependencies = Seq(
-    "org.http4s" %% "http4s-blaze-server" % Http4sVersion,
-    "org.http4s" %% "http4s-circe"        % Http4sVersion,
-    "org.http4s" %% "http4s-dsl"          % Http4sVersion,
-    "io.circe"   %% "circe-generic"       % CirceVersion,
-    "io.circe"   %% "circe-optics"        % CirceOpticsVersion
-  )
-
-  private val jwtDependencies = Seq(
-    "com.pauldijou" %% "jwt-circe" % JwtVersion
-  )
-
-  private val sangriaDependencies = Seq(
-    "org.sangria-graphql" %% "sangria"         % SangriaVersion,
-    "org.sangria-graphql" %% "sangria-circe"   % SangriaCirceVersion,
-    "io.codeheroes"       %% "commons-sangria" % CodeheroesCommonsVersion
-  )
+  val CirceVersion = "0.13.0" // TODO:bcm use or loose it
 
   private val grpcDependencies = Seq(
     "io.grpc"              % "grpc-netty"            % grpcNettyVersion,
@@ -50,10 +26,9 @@ object Dependencies {
   )
 
   private val miscDependencies = Seq(
-    "io.codeheroes"        %% "commons-sangria" % CodeheroesCommonsVersion,
-    "io.codeheroes"        %% "commons-core"    % CodeheroesCommonsVersion,
-    "com.github.mpilquist" %% "simulacrum"      % SimulacrumVersion,
-    "com.typesafe"         % "config"           % TypesafeConfigVersion
+    "io.codeheroes"        %% "commons-core" % CodeheroesCommonsVersion,
+    "com.github.mpilquist" %% "simulacrum"   % SimulacrumVersion,
+    "com.typesafe"         % "config"        % TypesafeConfigVersion
   )
 
   private val testDependencies = Seq(
@@ -62,9 +37,6 @@ object Dependencies {
   )
 
   val all: Seq[ModuleID] = Seq(
-    http4sDependencies,
-    sangriaDependencies,
-    jwtDependencies,
     postgresDependencies,
     grpcDependencies,
     testDependencies,
