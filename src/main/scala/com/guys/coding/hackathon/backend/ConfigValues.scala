@@ -6,7 +6,7 @@ import com.guys.coding.hackathon.backend.ConfigValues._
 case class ConfigValues(
     app: ApplicationConfig,
     postgres: PostgresConfig,
-    authKeys: AuthKeys,
+    // authKeys: AuthKeys,
     raw: Config
 )
 
@@ -20,7 +20,7 @@ object ConfigValues {
       rootLogLevel = config.getString("log-level.root")
     ),
     PostgresConfig(config.getConfig("postgres")),
-    AuthKeys(config.getString("keys.private"), config.getString("keys.public")),
+    // AuthKeys(config.getString("keys.private"), config.getString("keys.public")),
     config
   )
 

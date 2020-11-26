@@ -24,32 +24,32 @@ class ExampleQuery(exampleService: ExampleService[IO], tx: Transactor[IO]) exten
           "Example"
         ),
         arguments = PageArg :: EntriesPerPageArg :: Nil,
-        resolve = ctx =>
-          ctx.ctx.authorizedF { _ =>
-            val entriesPerPage = ctx.arg(EntriesPerPageArg)
+        resolve = ctx => {
+          // ctx.ctx.authorizedF { _ =>
+          val entriesPerPage = ctx.arg(EntriesPerPageArg)
 
-            exampleService.getBestShowEver
-              .map(show =>
-                Paginated(
-                  entities = (1 to entriesPerPage).map(_ => Node(show)).toList,
-                  3
-                )
+          exampleService.getBestShowEver
+            .map(show =>
+              Paginated(
+                entities = (1 to entriesPerPage).map(_ => Node(show)).toList,
+                3
               )
-              .unsafeToFuture()
-          }
+            )
+            .unsafeToFuture()
+        }
       ),
       Field(
-        "users",
+        "backendUsers",
         ListType(UserType),
         arguments = Nil,
-        resolve = ctx =>
-          ctx.ctx.authorizedF { _ =>
-            tx.trans
-              .apply(
-                DoobieExampleRepository.getUsers()
-              )
-              .unsafeToFuture()
-          }
+        resolve = ctx => // ctx.ctx.authorizedF { _ =>
+        {
+          tx.trans
+            .apply(
+              DoobieExampleRepository.getUsers()
+            )
+            .unsafeToFuture()
+        }
       )
     )
 }
