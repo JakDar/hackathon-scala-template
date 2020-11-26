@@ -1,16 +1,17 @@
 package com.guys.coding.hackathon.backend.api.graphql.schema.example
 
-import cats.effect.IO
 import com.guys.coding.hackathon.backend.api.graphql.schema.QueryHolder
 import com.guys.coding.hackathon.backend.api.graphql.service.GraphqlSecureContext
-import com.guys.coding.hackathon.backend.domain.ExampleService
 import hero.common.sangria.pagination.{PaginationArgs, PaginationTypes}
 import sangria.schema._
 import com.guys.coding.hackathon.backend.domain.ExampleService
 import cats.effect.IO
+import com.guys.coding.hackathon.backend.infrastructure.postgres.DoobieExampleRepository
+import doobie.util.transactor.Transactor
 
-class ExampleQuery(exampleService: ExampleService[IO]) extends QueryHolder {
+class ExampleQuery(exampleService: ExampleService[IO], tx: Transactor[IO]) extends QueryHolder {
 
+  import ExampleTypes.UserType
   import PaginationArgs._
   import PaginationTypes._
 
@@ -33,6 +34,19 @@ class ExampleQuery(exampleService: ExampleService[IO]) extends QueryHolder {
                   entities = (1 to entriesPerPage).map(_ => Node(show)).toList,
                   3
                 )
+              )
+              .unsafeToFuture()
+          }
+      ),
+      Field(
+        "users",
+        ListType(UserType),
+        arguments = Nil,
+        resolve = ctx =>
+          ctx.ctx.authorizedF { _ =>
+            tx.trans
+              .apply(
+                DoobieExampleRepository.getUsers()
               )
               .unsafeToFuture()
           }

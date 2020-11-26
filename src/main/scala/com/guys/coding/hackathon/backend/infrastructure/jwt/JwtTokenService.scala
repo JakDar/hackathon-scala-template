@@ -3,7 +3,6 @@ package com.guys.coding.hackathon.backend.infrastructure.jwt
 import hero.common.util.time.TimeUtils.Implicits._millisToZonedDateTime
 // import pdi.jwt.{JwtAlgorithm, JwtCirce, JwtClaim}
 
-import scala.language.postfixOps
 import java.security.{PrivateKey, PublicKey}
 import java.time.ZonedDateTime
 import java.util.UUID

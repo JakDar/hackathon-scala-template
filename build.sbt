@@ -14,7 +14,7 @@ lazy val `hackathon-backend` = (project in file("."))
   .settings(
     organization := "com.guys.coding",
     name := "hackathon-backend",
-    scalaVersion := "2.13.1",
+    scalaVersion := "2.13.3",
     resolvers ++= Dependencies.additionalResolvers,
     libraryDependencies ++= Dependencies.all,
     scalacOptions ++= CompilerOps.all,

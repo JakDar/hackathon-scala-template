@@ -8,7 +8,7 @@ import sangria.schema.ObjectType
 class Query(services: Services) {
 
   private val queryHolders = List[QueryHolder](
-    new ExampleQuery(services.exampleService)
+    new ExampleQuery(services.exampleService, services.tx)
   )
 
   val QueryType = ObjectType(

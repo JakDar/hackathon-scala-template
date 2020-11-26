@@ -1,6 +1,5 @@
 package com.guys.coding.hackathon.backend.api.graphql.core
 
-import cats.effect.IO
 import cats.syntax.applicativeError._
 import com.guys.coding.hackathon.backend.api.graphql.{Mutation, Query}
 import com.typesafe.scalalogging.StrictLogging
@@ -11,7 +10,7 @@ import io.circe.optics.JsonPath._
 import org.http4s.circe._
 import org.http4s.dsl.io._
 import org.http4s.util.CaseInsensitiveString
-import org.http4s.{HttpRoutes, _}
+import org.http4s.HttpRoutes
 import sangria.execution._
 import sangria.marshalling.circe._
 import sangria.parser.QueryParser
