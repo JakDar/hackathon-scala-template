@@ -2,22 +2,22 @@ object Dependencies {
   import sbt._
   import scalapb.compiler.Version
   val CodeheroesCommonsVersion = "0.153"
-  val ScalaTestVersion         = "3.0.8"
-  val ScalaMockVersion         = "4.4.0"
+  val ScalaTestVersion         = "3.2.3"
+  val ScalaMockVersion         = "5.0.0"
   val SimulacrumVersion        = "0.19.0"
-  val TypesafeConfigVersion    = "1.4.0"
+  val TypesafeConfigVersion    = "1.4.1"
 
   val grpcNettyVersion: String   = Version.grpcJavaVersion
   val grpcRuntimeVersion: String = Version.scalapbVersion
 
-  val Http4sVersion       = "0.21.1"
+  val Http4sVersion       = "0.21.13"
   val CirceVersion        = "0.13.0"
   val CirceOpticsVersion  = "0.13.0"
-  val SangriaCirceVersion = "1.3.0"
+  val SangriaCirceVersion = "1.3.1"
   val SangriaVersion      = "2.0.0-M3"
-  val JwtVersion          = "4.2.0"
+  val JwtVersion          = "4.3.0"
 
-  val doobieVersion           = "0.9.2"
+  val doobieVersion           = "0.9.4"
   val enumeratumDoobieVersion = "1.6.0"
 
   private val http4sDependencies = Seq(
@@ -56,8 +56,8 @@ object Dependencies {
   )
 
   private val testDependencies = Seq(
-    "org.scalatest" %% "scalatest" % ScalaTestVersion % Test,
-    "org.scalamock" %% "scalamock" % ScalaMockVersion % Test
+    "org.scalatest" %% "scalatest" % ScalaTestVersion % Test
+    // "org.scalamock" %% "scalamock" % ScalaMockVersion % Test
   )
 
   val all: Seq[ModuleID] = Seq(
